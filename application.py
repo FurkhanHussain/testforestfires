@@ -39,7 +39,7 @@ def predict_datapoint():
     else:
         return render_template('home.html')
     
-@app.route('/predict_thyroid',methods=['GET','POST'])
+@app.route('/thyroid',methods=['GET','POST'])
 def predict_thyroid():
     if request.method=="POST":
         Age=float(request.form.get('Age'))
@@ -55,9 +55,9 @@ def predict_thyroid():
         
         logistic_data_scaled=standard_scaler.transform([[Age,Gender,HxRadiothreapy,Focality,Risk,T,N,M,Stage,Recurred]])
         result=ridge_model.predict(logistic_data_scaled)
-        return render_template('home.html',results=result[0])
+        return render_template('thyroid.html',results=result[0])
     else:
-        return render_template('home.html')
+        return render_template('thyroid.html')
     
 
 if __name__=="__main__":

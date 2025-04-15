@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <div class="login">
+            <h1>Thyroid Recurrence Prediction</h1>
+            <!--Main Input for receiving query to our ML-->
+            <form action="{{ url_for('predict_thyroid')}}" method="POST">
+                <input type="text" name="Age" placeholder="Age" required="required" /> <br>
+                <input type="text" name="Gender" placeholder="Gender" required="required" /> <br>
+                <input type="text" name="HxRadiothreapy" placeholder="HxRadiothreapy" required="required" /> <br>
+                <input type="text" name="Focality" placeholder="Focality" required="required" /> <br>
+                <input type="text" name="Risk" placeholder="Risk" required="required" /> <br>
+                <input type="text" name="T" placeholder="T" required="required" /> <br>
+                <input type="text" name="N" placeholder="N" required="required" /> <br>
+                <input type="text" name="M" placeholder="M" required="required" /> <br>
+                <input type="text" name="Stage" placeholder="Stage" required="required" /> <br>
+                <input type="text" name="Recurrence" placeholder="Recurrence" required="required" /> <br>
+
+
+                <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>                       
+            </form>
+        <h2>
+            THE Thyroid prediction is {{results}}
+        </h2>
+        </div>
+    </body>
+</html>

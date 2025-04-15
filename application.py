@@ -11,6 +11,7 @@ app=application
 ##importing ridge regressor and standard scaler pickle
 ridge_model=pickle.load(open('model/ridge.pkl','rb'))
 standard_scaler=pickle.load(open('model/scaler.pkl','rb'))
+logistic=pickle.load(open('model/logistic.pkl','rb'))
 
 @app.route("/")
 def index():
@@ -37,6 +38,27 @@ def predict_datapoint():
         return render_template('home.html',results=result[0])
     else:
         return render_template('home.html')
+    
+@app.route('/predict_thyroid',methods=['GET','POST'])
+def predict_datapoint():
+    if request.method=="POST":
+        Age=float(request.form.get('Age'))
+        Gender=float(request.form.get('Gender'))
+        HxRadiothreapy=float(request.form.get('Hx Radiothreapy'))
+        Focality=float(request.form.get('Focality'))
+        Risk=float(request.form.get('Risk'))
+        T=float(request.form.get('T'))
+        N=float(request.form.get('N'))
+        M=float(request.form.get('M'))
+        Stage=float(request.form.get('Stage'))
+        Recurred=float(request.form.get('Recurred'))
+        
+        new_data_scaled=standard_scaler.transform([[Age,Gender,HxRadiothreapy,Focality,Risk,T,N,M,Stage,Recurred]])
+        result=ridge_model.predict(new_data_scaled)
+        return render_template('home.html',results=result[0])
+    else:
+        return render_template('home.html')
+    
 
 if __name__=="__main__":
     app.run(host="0.0.0.0")

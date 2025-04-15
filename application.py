@@ -40,7 +40,7 @@ def predict_datapoint():
         return render_template('home.html')
     
 @app.route('/predict_thyroid',methods=['GET','POST'])
-def predict_datapoint():
+def predict_thyroid():
     if request.method=="POST":
         Age=float(request.form.get('Age'))
         Gender=float(request.form.get('Gender'))
@@ -53,8 +53,8 @@ def predict_datapoint():
         Stage=float(request.form.get('Stage'))
         Recurred=float(request.form.get('Recurred'))
         
-        new_data_scaled=standard_scaler.transform([[Age,Gender,HxRadiothreapy,Focality,Risk,T,N,M,Stage,Recurred]])
-        result=ridge_model.predict(new_data_scaled)
+        logistic_data_scaled=standard_scaler.transform([[Age,Gender,HxRadiothreapy,Focality,Risk,T,N,M,Stage,Recurred]])
+        result=ridge_model.predict(logistic_data_scaled)
         return render_template('home.html',results=result[0])
     else:
         return render_template('home.html')
